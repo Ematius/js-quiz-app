@@ -1,0 +1,77 @@
+### Request Get ALL
+GET http://localhost:3000/question
+Accept: application/json
+
+
+### Request Get One
+GET http://localhost:3000/question/2
+Accept: application/json
+
+### Request Create
+Post http://localhost:3000/auth/register
+Content-Type: application/json
+
+{
+  "acc": "usuario123",
+  "email": "correo@ejemplo.com",
+  "pass": "123456"
+}
+
+### request Login
+Post http://localhost:3000/auth/login
+Content-Type: application/json
+
+{
+  "email": "correo@ejemplo.com",
+  "pass": "123456"
+}
+
+### Answer Question (Invite Mode)
+POST http://localhost:3000/question/invite/answer
+Content-Type: application/json
+
+{
+  "questionId": 1,
+  "answer": "Inmutable"
+}
+
+
+### Request Get Next Question (mode invite)
+GET http://localhost:3000/question/invite/next
+Accept: application/json
+
+### Request Get Next Question (mode invite)
+GET http://localhost:3000/question/invite/next?lastId=142
+Accept: application/json
+
+
+### Request Answer Question (with JWT)
+POST http://localhost:3000/question/answer
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsImFjYyI6InVzdWFyaW8xMjMiLCJpYXQiOjE3NTQ1ODQ0OTV9.uBWCn9pIY-eGStzyBxb23WiSFXLPiqMUzLpNNqlhXH8
+
+{
+  "userId": 1,
+  "questionId": 10,
+  "answer": "Estrella"
+}
+
+### Request Next Answer Question (with JWT)
+GET http://localhost:3000/question/acc/next?lastId=141
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsImFjYyI6InVzdWFyaW8xMjMiLCJpYXQiOjE3NTQ1ODQ0OTV9.uBWCn9pIY-eGStzyBxb23WiSFXLPiqMUzLpNNqlhXH8
+
+
+### Toggle favorite (JWT)
+POST http://localhost:3000/question/favorite/toggle
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsImFjYyI6InVzdWFyaW8xMjMiLCJpYXQiOjE3NTQ1ODQ0OTV9.uBWCn9pIY-eGStzyBxb23WiSFXLPiqMUzLpNNqlhXH8
+
+{
+  "questionId": 6
+}
+
+### Get favorites
+GET http://localhost:3000/question/favorites
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsImFjYyI6InVzdWFyaW8xMjMiLCJpYXQiOjE3NTQ1ODQ0OTV9.uBWCn9pIY-eGStzyBxb23WiSFXLPiqMUzLpNNqlhXH8
