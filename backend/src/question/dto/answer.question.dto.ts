@@ -11,3 +11,11 @@ export class AnswerQuestionDto {
   @IsInt()
   userId: number;
 }
+
+export class AnswerInviteDto {
+  @IsInt()
+  questionId: number;
+  
+  @IsString()
+  answer: string;
+}

@@ -16,8 +16,9 @@ export class QuestionController {
   }
 
   @Get('invite/next')
-  getNextQuestion(@Query('lastId') lastId?: number) {
-    return this.questionService.getNextQuestion(lastId);
+  async getNextQuestion(@Query('lastId') lastId: number): Promise<Question> {
+    if (lastId == null || lastId === undefined) lastId = 0;
+    return this.questionService.getNextQuestion(+lastId);
   }
 
   @UseGuards(JwtAuthGuard)

@@ -35,24 +35,20 @@ export class QuestionService {
   remove() {
     throw new NotImplementedException('Remove method is not implemented.');
   }
+//-----------------------------------------------------------------------------------
 
   async getNextQuestion(lastId?: number): Promise<Question> {
-    if (lastId != null) {
+  
       const next = await this.prisma.question.findFirst({
-        where: { id: { gt: Number(lastId) } },
+        where: { id: lastId  },
         orderBy: { id: 'asc' },
       });
       if (!next) throw new NotFoundException('No hay más preguntas');
       return next;
-    }
-
-    const first = await this.prisma.question.findFirst({
-      orderBy: { id: 'asc' },
-    });
-    if (!first) throw new NotFoundException('No hay preguntas registradas');
-    return first;
   }
 
+
+  
   async registerProgress(dto: AnswerQuestionDto) {
     const question = await this.prisma.question.findUnique({
       where: { id: dto.questionId },

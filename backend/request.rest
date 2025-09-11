@@ -2,10 +2,36 @@
 GET http://localhost:3000/question
 Accept: application/json
 
-
 ### Request Get One
-GET http://localhost:3000/question/2
+GET http://localhost:3000/question/3
 Accept: application/json
+
+---------------------------------------------------------------------------------------------------
+
+### Request Get Next Question (mode invite)
+GET http://localhost:3000/question/invite/next?lastId=170
+Accept: application/json
+
+
+
+### Request Get Next Question (mode invite)
+GET http://localhost:3000/question/invite
+Accept: application/json
+
+### Answer Question (Invite Mode)
+POST http://localhost:3000/question/invite/answer
+Content-Type: application/json
+
+{
+  "questionId": 1,
+  "answer": "Inmutable"
+}
+
+----------------------------------------------------------------------------------------------------
+
+
+
+
 
 ### Request Create
 Post http://localhost:3000/auth/register
@@ -26,25 +52,6 @@ Content-Type: application/json
   "pass": "123456"
 }
 
-### Answer Question (Invite Mode)
-POST http://localhost:3000/question/invite/answer
-Content-Type: application/json
-
-{
-  "questionId": 1,
-  "answer": "Inmutable"
-}
-
-
-### Request Get Next Question (mode invite)
-GET http://localhost:3000/question/invite/next
-Accept: application/json
-
-### Request Get Next Question (mode invite)
-GET http://localhost:3000/question/invite/next?lastId=142
-Accept: application/json
-
-
 ### Request Answer Question (with JWT)
 POST http://localhost:3000/question/answer
 Content-Type: application/json
@@ -52,8 +59,8 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsImFjYyI6I
 
 {
   "userId": 1,
-  "questionId": 10,
-  "answer": "Estrella"
+  "questionId": 11,
+  "answer": "mutable"
 }
 
 ### Request Next Answer Question (with JWT)
@@ -68,7 +75,7 @@ Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsImFjYyI6InVzdWFyaW8xMjMiLCJpYXQiOjE3NTQ1ODQ0OTV9.uBWCn9pIY-eGStzyBxb23WiSFXLPiqMUzLpNNqlhXH8
 
 {
-  "questionId": 6
+  "questionId": 5
 }
 
 ### Get favorites
