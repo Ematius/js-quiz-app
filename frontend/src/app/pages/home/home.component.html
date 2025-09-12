@@ -12,10 +12,33 @@
     <p>{{ question.level }}</p>
     <p>{{ question.method_type }}</p>
     <p>{{ question.mode_answer }}</p>
+    <button (click)="afterQuestion()">Retroceder</button>
     <button (click)="nextQuestion()">Siguiente pregunta</button>
     } @else {
     <p>Cargando…</p>
     }
   </div>
+  <div>
+   <input type="text" [(ngModel)]="userAnswer" placeholder="Escribe tu respuesta aquí">
+   @if(userAnswer === '') {
+    <button disabled>Enviar Respuesta</button>
+   } @else {
+    <button (click)="sendAnswer()">Enviar Respuesta</button>
+   }
+  </div>
+  <div class="result-container">
+    @if (result) {
+    @if (result.isCorrect) {
+    <p style="color: green;">✅ ¡Correcto!</p>
+    } @else {
+    <p style="color: red;">❌ Incorrecto. La respuesta correcta es:
+      <strong>{{ result.correctAnswer }}</strong>
+    </p>
+    }
+    }
+  </div>
+
+
+
 
 

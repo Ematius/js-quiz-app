@@ -13,12 +13,12 @@ export interface QuestionDto {
   explanation: string | null;
 }
 
-export interface AnswerResultDto {
-  isCorrect: boolean;
-  correctAnswer: string;
-}
-
-export interface QuestionInviteDto {
+export interface AnswerInviteDto {
   questionId: number;
   answer: string;
+}
+
+export interface AnswerResultInviteDto {
+  isCorrect: boolean;
+  correctAnswer: string;
 }

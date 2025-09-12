@@ -17,7 +17,7 @@ export class QuestionController {
 
   @Get('invite/next')
   async getOneQuestion(@Query('lastId') lastId: number): Promise<Question> {
-    return this.questionService.getOneQuestion(lastId);
+    return this.questionService.getOneQuestion(+lastId);
   }
 
   @Post('invite/answer')
