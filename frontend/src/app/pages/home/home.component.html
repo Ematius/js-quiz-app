@@ -1,1 +1,21 @@
 <p>home works!</p>
+
+  <div class="question-container">
+    @if (errorMsg) {
+    <p>{{ errorMsg }}</p>
+    <button (click)="restart()">Volver al inicio</button>
+    } @else if (question) {
+    <h2>Pregunta {{ question.method }}</h2>
+    <p>{{ question.question }}</p>
+    <p>{{ question.answer }}</p>
+    <p>{{ question.explanation }}</p>
+    <p>{{ question.level }}</p>
+    <p>{{ question.method_type }}</p>
+    <p>{{ question.mode_answer }}</p>
+    <button (click)="nextQuestion()">Siguiente pregunta</button>
+    } @else {
+    <p>Cargando…</p>
+    }
+  </div>
+
+

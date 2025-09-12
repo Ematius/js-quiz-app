@@ -5,7 +5,7 @@ import {
 } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { Question } from './entities/question.entity';
-import { AnswerQuestionDto } from './dto/answer.question.dto';
+import { AnswerInviteDto, AnswerQuestionDto } from './dto/answer.question.dto';
 
 @Injectable()
 export class QuestionService {
@@ -35,20 +35,37 @@ export class QuestionService {
   remove() {
     throw new NotImplementedException('Remove method is not implemented.');
   }
-//-----------------------------------------------------------------------------------
+  //-----------------------------------------------------------------------------------
 
-  async getNextQuestion(lastId?: number): Promise<Question> {
-  
-      const next = await this.prisma.question.findFirst({
-        where: { id: lastId  },
-        orderBy: { id: 'asc' },
-      });
-      if (!next) throw new NotFoundException('No hay más preguntas');
-      return next;
+  async getOneQuestion(lastId?: number): Promise<Question> {
+    const next = await this.prisma.question.findFirst({
+      where: { id: lastId },
+      orderBy: { id: 'asc' },
+    });
+    if (!next) throw new NotFoundException('No hay más preguntas');
+    return next;
   }
 
-
   
+  async answerInvite(dto: AnswerInviteDto) {
+    const question = await this.prisma.question.findUnique({
+      where: { id: dto.questionId },
+    });
+
+    if (!question) {
+      throw new NotFoundException(
+        `Pregunta con id ${dto.questionId} no encontrada`,
+      );
+    }
+
+    const isCorrect = question.answer === dto.answer;
+
+    return {
+      isCorrect,
+      correctAnswer: question.answer,
+    };
+  }
+
   async registerProgress(dto: AnswerQuestionDto) {
     const question = await this.prisma.question.findUnique({
       where: { id: dto.questionId },
@@ -92,26 +109,7 @@ export class QuestionService {
       progress: { correct, total },
     };
   }
- 
 
-  async answerInvite(dto: AnswerQuestionDto) {
-    const question = await this.prisma.question.findUnique({
-      where: { id: dto.questionId },
-    });
-
-    if (!question) {
-      throw new NotFoundException(
-        `Pregunta con id ${dto.questionId} no encontrada`,
-      );
-    }
-
-    const isCorrect = question.answer === dto.answer;
-
-    return {
-      isCorrect,
-      correctAnswer: question.answer,
-    };
-  }
 
   async toggleFavorite(userId: number, questionId: number) {
     const where = {

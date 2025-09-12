@@ -9,13 +9,7 @@ Accept: application/json
 ---------------------------------------------------------------------------------------------------
 
 ### Request Get Next Question (mode invite)
-GET http://localhost:3000/question/invite/next?lastId=170
-Accept: application/json
-
-
-
-### Request Get Next Question (mode invite)
-GET http://localhost:3000/question/invite
+GET http://localhost:3000/question/invite/next?lastId=1
 Accept: application/json
 
 ### Answer Question (Invite Mode)
@@ -26,6 +20,12 @@ Content-Type: application/json
   "questionId": 1,
   "answer": "Inmutable"
 }
+
+
+### Request Get Next Question (mode invite)
+GET http://localhost:3000/question/invite
+Accept: application/json
+
 
 ----------------------------------------------------------------------------------------------------
 
