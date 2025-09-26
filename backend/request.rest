@@ -1,16 +1,12 @@
-### Request Get ALL
-GET http://localhost:3000/question
-Accept: application/json
 
-### Request Get One
-GET http://localhost:3000/question/3
-Accept: application/json
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsImFjYyI6InVzdWFyaW8xMjMiLCJpYXQiOjE3NTc5Mjg0NTR9.CtIt7fZ1mHjfOhaF6wy4YBzmCldB-jp5EGsoFBrYp7k
 
----------------------------------------------------------------------------------------------------
+###----------------------MODE INVITE------------------------------
 
 ### Request Get Next Question (mode invite)
 GET http://localhost:3000/question/invite/next?lastId=1
 Accept: application/json
+
 
 ### Answer Question (Invite Mode)
 POST http://localhost:3000/question/invite/answer
@@ -21,25 +17,15 @@ Content-Type: application/json
   "answer": "Inmutable"
 }
 
-
-### Request Get Next Question (mode invite)
-GET http://localhost:3000/question/invite
-Accept: application/json
-
-
-----------------------------------------------------------------------------------------------------
-
-
-
-
+###------------------------CREATE USER----------------------------
 
 ### Request Create
 Post http://localhost:3000/auth/register
 Content-Type: application/json
 
 {
-  "acc": "usuario123",
-  "email": "correo@ejemplo.com",
+  "acc": "usuario2",
+  "email": "correo1@ejemplo.com",
   "pass": "123456"
 }
 
@@ -52,33 +38,41 @@ Content-Type: application/json
   "pass": "123456"
 }
 
-### Request Answer Question (with JWT)
-POST http://localhost:3000/question/answer
+###-----------------------REQUEST USER-----------------------------
+
+### Post update progress user
+POST  http://localhost:3000/question/progress
+Authorization: Bearer {{token}}
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsImFjYyI6InVzdWFyaW8xMjMiLCJpYXQiOjE3NTQ1ODQ0OTV9.uBWCn9pIY-eGStzyBxb23WiSFXLPiqMUzLpNNqlhXH8
 
 {
-  "userId": 1,
-  "questionId": 11,
-  "answer": "mutable"
+  "questionId": 1,
+  "answer": "Inmutable"
 }
 
-### Request Next Answer Question (with JWT)
-GET http://localhost:3000/question/acc/next?lastId=141
-Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsImFjYyI6InVzdWFyaW8xMjMiLCJpYXQiOjE3NTQ1ODQ0OTV9.uBWCn9pIY-eGStzyBxb23WiSFXLPiqMUzLpNNqlhXH8
+### Get Read progress user
+GET http://localhost:3000/question/progress
+Authorization: Bearer {{token}}
 
 
 ### Toggle favorite (JWT)
 POST http://localhost:3000/question/favorite/toggle
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsImFjYyI6InVzdWFyaW8xMjMiLCJpYXQiOjE3NTQ1ODQ0OTV9.uBWCn9pIY-eGStzyBxb23WiSFXLPiqMUzLpNNqlhXH8
+Authorization: Bearer {{token}}
 
 {
   "questionId": 5
 }
 
+
 ### Get favorites
 GET http://localhost:3000/question/favorites
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsImFjYyI6InVzdWFyaW8xMjMiLCJpYXQiOjE3NTQ1ODQ0OTV9.uBWCn9pIY-eGStzyBxb23WiSFXLPiqMUzLpNNqlhXH8
+Authorization: Bearer {{token}}
+
+### comprueba favorite in user
+GET http://localhost:3000/question/favorite/5
+Authorization: Bearer {{token}}
+
+
+

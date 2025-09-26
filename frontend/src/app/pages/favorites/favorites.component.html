@@ -1,0 +1,20 @@
+<button routerLink="/home">Regresar</button>
+<div>
+  <h2>Preguntas Favoritas</h2>
+  @if(favorites().length === 0){
+    <p>No hay preguntas favoritas.</p>
+  } @else {
+    <ul>
+      @for( fav of favorites(); track $index){
+        <li>
+          <h3>Pregunta {{ fav.method }}</h3>
+          <p>{{ fav.question }}</p>
+          <p>{{ fav.answer }}</p>
+          <p>{{ fav.level }}</p>
+          <p>{{ fav.method_type }}</p>
+          <p>{{ fav.mode_answer }}</p>
+        </li>
+      }
+    </ul>
+  }
+</div>

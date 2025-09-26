@@ -1,1 +1,29 @@
+<div class="acc-container">
+  @if (user()) {
+    <p>Bienvenido {{ user()?.acc }}</p>
+
+    <button routerLink="/favorites">Ver favorites</button>
+    <button (click)="logout()">Cerrar sesión</button>
+  } @else {
+    <div class="login-container">
+      <input type="text" [(ngModel)]="logUser.email" placeholder="Email">
+      <input type="password" [(ngModel)]="logUser.pass" placeholder="Contraseña">
+      <button (click)="loginUser(logUser)">Iniciar Sesión</button>
+      @if (loginError) {
+        <p style="color:red;">{{ loginError }}</p>
+      }
+    </div>
+
+    <div class="register-container">
+      <p>¿Aún no tienes cuenta?</p>
+      <p>Crear una cuenta habilita ver el proceso y respuestas correctas</p>
+      <p>También te permite guardar en favoritos para repasar siempre que se quiera</p>
+      <input type="text" [(ngModel)]="newAcc.acc" placeholder="Usuario">
+      <input type="text" [(ngModel)]="newAcc.email" placeholder="Email">
+      <input type="password" [(ngModel)]="newAcc.pass" placeholder="Contraseña">
+      <button (click)="createUser(newAcc)">Crear Cuenta</button>
+    </div>
+  }
+</div>
+
 <p>header works!</p>

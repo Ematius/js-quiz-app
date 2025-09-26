@@ -15,19 +15,6 @@ export class QuestionService {
     throw new NotImplementedException('Create method is not implemented.');
   }
 
-  async findAll(): Promise<Question[]> {
-    return await this.prisma.question.findMany();
-  }
-
-  async findOne(id: number): Promise<Question> {
-    const question = await this.prisma.question.findUnique({ where: { id } });
-
-    if (!question) {
-      throw new NotFoundException(`Pregunta con id ${id} no encontrada`);
-    }
-    return question;
-  }
-
   update() {
     throw new NotImplementedException('Update method is not implemented.');
   }
@@ -46,7 +33,6 @@ export class QuestionService {
     return next;
   }
 
-  
   async answerInvite(dto: AnswerInviteDto) {
     const question = await this.prisma.question.findUnique({
       where: { id: dto.questionId },
@@ -66,52 +52,7 @@ export class QuestionService {
     };
   }
 
-  async registerProgress(dto: AnswerQuestionDto) {
-    const question = await this.prisma.question.findUnique({
-      where: { id: dto.questionId },
-    });
-    if (!question) {
-      throw new NotFoundException(
-        `Pregunta con id ${dto.questionId} no encontrada`,
-      );
-    }
-    const isCorrect = question.answer === dto.answer;
-
-    if (dto.userId) {
-      await this.prisma.user_progress.upsert({
-        where: {
-          user_id_question_id: {
-            user_id: dto.userId,
-            question_id: dto.questionId,
-          },
-        },
-        update: { is_correct: isCorrect },
-        create: {
-          user_id: dto.userId,
-          question_id: dto.questionId,
-          is_correct: isCorrect,
-        },
-      });
-    }
-    const [correct, total] = dto.userId
-      ? await Promise.all([
-          this.prisma.user_progress.count({
-            where: { user_id: dto.userId, is_correct: true },
-          }),
-          this.prisma.question.count(),
-        ])
-      : [0, await this.prisma.question.count()];
-
-    return {
-      isCorrect,
-      questionId: dto.questionId,
-      correctAnswer: question.answer,
-      progress: { correct, total },
-    };
-  }
-
-
-  async toggleFavorite(userId: number, questionId: number) {
+  async PostToggleFavorite(userId: number, questionId: number) {
     const where = {
       user_id_question_id: { user_id: userId, question_id: questionId },
     };
@@ -155,5 +96,64 @@ export class QuestionService {
     });
 
     return favorites.map((f) => f.question);
+  }
+  async checkFavoriteInUser(
+    userId: number,
+    questionId: number,
+  ): Promise<boolean> {
+    const row = await this.prisma.favorite.findUnique({
+      where: {
+        user_id_question_id: { user_id: userId, question_id: questionId },
+      },
+      select: { user_id: true },
+    });
+    return !!row;
+  }
+
+  async updateProgress(userId: number, dto: AnswerQuestionDto) {
+    const question = await this.prisma.question.findUnique({
+      where: { id: dto.questionId },
+      select: { answer: true },
+    });
+    if (!question) throw new NotFoundException('Pregunta no encontrada');
+
+   
+    const isCorrect = dto.answer.trim() === question.answer.trim();
+
+    await this.prisma.user_progress.upsert({
+      where: {
+        user_id_question_id: {
+          user_id: userId,
+          question_id: dto.questionId,
+        },
+      },
+      update: { is_correct: isCorrect },
+      create: {
+        user_id: userId,
+        question_id: dto.questionId,
+        is_correct: isCorrect,
+      },
+    });
+    return { isCorrect, questionId: dto.questionId, correctAnswer: question.answer };
+  }
+
+  async readProgress(userId: number) {
+    const questionCorrect = this.prisma.user_progress.count({
+      where: { user_id: userId, is_correct: true },
+    });
+    const questionAnswered = this.prisma.user_progress.count({
+      where: { user_id: userId },
+    });
+    const questionsTotal = this.prisma.question.count();
+
+    const [correct, answered, total] = await this.prisma.$transaction([
+      questionCorrect,
+      questionAnswered,
+      questionsTotal,
+    ]);
+    const wrong = Math.max(answered - correct, 0);
+    const unanswered = Math.max(total - answered, 0);
+
+    return { answered, unanswered, correct, wrong, total };
   }
 }

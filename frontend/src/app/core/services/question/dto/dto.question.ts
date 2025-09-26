@@ -13,7 +13,7 @@ export interface QuestionDto {
   explanation: string | null;
 }
 
-export interface AnswerInviteDto {
+export interface AnswerDto {
   questionId: number;
   answer: string;
 }
