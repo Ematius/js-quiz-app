@@ -33,9 +33,9 @@
     <p>Modo de Respuesta: {{ question.mode_answer }}</p>
     <p style="white-space: pre-line">{{ question.question }}</p>
     <p>{{ question.answer }}</p>
-    <!-- <p>{{ question.explanation }}</p> -->
+
     <button (click)="afterQuestion()">Retroceder</button>
-    <button (click)="nextQuestion()">Siguiente pregunta</button>
+
     } @else {
     <p>Cargando…</p>
     }
@@ -59,6 +59,7 @@
     } @else {
     <p>❌ Incorrecto. La respuesta correcta es:
       {{ resultUser.correctAnswer }}
+      <button (click)="nextQuestion()">Siguiente pregunta</button>
 
     </p>
     }
@@ -68,11 +69,12 @@
     <button (click)="nextQuestion()">Siguiente pregunta</button>
     } @else {
     <p>❌ Incorrecto. La respuesta correcta es:
-      <strong>{{ result.correctAnswer }}</strong>
+      <strong>{{ result.correctAnswer }} </strong>
+      <button (click)="nextQuestion()">Siguiente pregunta</button>
     </p>
     }
     }
-    
+
     @if(responseProgressQuestion){
     <p>Total: {{responseProgressQuestion.total}}</p>
     <p>Contestadas hasta del total: {{responseProgressQuestion.answered}}</p>

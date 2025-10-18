@@ -44,6 +44,8 @@ export class HomeComponent implements OnInit {
   isFavorite: boolean | null = null;
   favoriteMsg: string | null = null;
 
+  token = localStorage.getItem('token');
+
   ngOnInit() {
     this.loadQuestion();
   }
@@ -57,7 +59,11 @@ export class HomeComponent implements OnInit {
         this.question = question;
         this.favoriteMsg = '';
         this.errorMsg = null;
-        this.checkFavoriteInUser({ questionId: question.id });
+        if (this.checkLogIn()) {
+          this.checkFavoriteInUser({ questionId: question.id });
+        } else {
+          this.isFavorite = null;
+        }
       },
       error: () => {
         this.question = null;
@@ -102,7 +108,20 @@ export class HomeComponent implements OnInit {
   }
 
   sendAnswer(dto: AnswerDto): void {
-    localStorage.getItem('token');
+    if (!this.token) {
+      this.questionService.postAnswerInvite(dto).subscribe({
+        next: (res) => {
+          this.result = res;
+          this.errorMsg = null;
+        },
+        error: () => {
+          this.result = null;
+          this.errorMsg = 'Error al enviar la respuesta como invitado';
+        },
+      });
+      return;
+    }
+
     this.questionService.postUpdateProgress(dto).subscribe({
       next: (res: ResponseAnswerQuestion) => {
         this.resultUser = res;
@@ -151,6 +170,7 @@ export class HomeComponent implements OnInit {
   }
 
   checkLogIn(): boolean {
+
     const user = this.AuthService.getCurrentUser();
     if (user === null) {
       return (this.logIn = false);

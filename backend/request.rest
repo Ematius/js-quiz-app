@@ -1,6 +1,5 @@
 
-@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsImFjYyI6InVzdWFyaW8xMjMiLCJpYXQiOjE3NTc5Mjg0NTR9.CtIt7fZ1mHjfOhaF6wy4YBzmCldB-jp5EGsoFBrYp7k
-
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsImFjYyI6InVzdWFyaW8yIiwiaWF0IjoxNzYwODAxMzQzfQ.ex88eON6Y8EqjS9eY2TbYbAxSvdJn-wMHKnjAPoUxSw
 ###----------------------MODE INVITE------------------------------
 
 ### Request Get Next Question (mode invite)
@@ -34,7 +33,7 @@ Post http://localhost:3000/auth/login
 Content-Type: application/json
 
 {
-  "email": "correo@ejemplo.com",
+  "email": "correo1@ejemplo.com",
   "pass": "123456"
 }
 
