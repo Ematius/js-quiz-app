@@ -1,0 +1,166 @@
+.acc-container {
+  background: var(--background-color);
+  color: var(--color-quaternary);
+  width: 100%;
+  padding: clamp(12px, 2vw, 24px);
+  border-bottom: 1px solid color-mix(in srgb, var(--color-quaternary) 20%, var(--background-color));
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+
+  .brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--color-primary);
+
+
+    .brand-logo {
+      width: 28px;
+      height: 28px;
+      object-fit: contain;
+      color: var(--color-primary);
+    }
+    .brand-name {
+      font-family: var(--font-main);
+      font-weight: var(--weight-Bold);
+      font-size: var(--font-ms);
+      color: var(--color-quaternary);
+      text-decoration: none;
+    }
+  }
+
+  .actions {
+    display: inline-flex;
+    gap: 10px;
+
+    button {
+      border: 1px solid color-mix(in srgb, var(--color-quaternary) 45%, var(--background-color));
+      background: transparent;
+      color: var(--color-quaternary);
+      padding: 8px 14px;
+      border-radius: 10px;
+      font-weight: var(--weight-Bold);
+      cursor: pointer;
+      transition: transform .08s ease, border-color .2s ease, background .2s ease, box-shadow .2s ease;
+
+      &:hover {
+        border-color: var(--color-secondary);
+        background: color-mix(in srgb, var(--color-secondary) 12%, transparent);
+      }
+      &:active { transform: translateY(1px) scale(.99); }
+      &:focus-visible {
+        outline: none;
+        box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-primary) 35%, transparent);
+      }
+    }
+  }
+
+  .auth {
+    display: inline-flex;
+    align-items: flex-start;
+    gap: 12px;
+
+    details {
+      min-width: 260px;
+      background: color-mix(in srgb, var(--color-primary) 6%, var(--background-color));
+      border: 1px solid color-mix(in srgb, var(--color-quaternary) 25%, var(--background-color));
+      border-radius: 14px;
+      padding: 0;
+      overflow: hidden;
+
+      summary {
+        list-style: none;
+        cursor: pointer;
+        padding: 10px 14px;
+        font-weight: var(--weight-Bold);
+        color: var(--color-quaternary);
+        border-bottom: 1px solid color-mix(in srgb, var(--color-quaternary) 20%, var(--background-color));
+        user-select: none;
+
+        &:hover { color: var(--color-primary); }
+        &:focus-visible {
+          outline: 2px solid var(--color-primary);
+          outline-offset: 2px;
+        }
+      }
+
+
+      input,
+      p,
+      button {
+        margin: 10px 14px 0 14px;
+      }
+
+      p {
+        margin-top: 8px;
+        color: var(--color-quaternary);
+
+        &:first-of-type {
+          color: var(--color-primary);
+          font-weight: var(--weight-Bold);
+        }
+      }
+
+      input {
+        width: calc(100% - 28px);
+        background: var(--color-tertiary);
+        color: var(--color-quaternary);
+        border: 1px solid color-mix(in srgb, var(--color-quaternary) 30%, var(--background-color));
+        border-radius: 10px;
+        padding: 10px 12px;
+        transition: border-color .2s ease, box-shadow .2s ease;
+
+        &::placeholder { color: color-mix(in srgb, var(--color-quaternary) 60%, var(--background-color)); }
+        &:hover { border-color: color-mix(in srgb, var(--color-secondary) 35%, var(--color-quaternary)); }
+        &:focus {
+          outline: none;
+          border-color: var(--color-primary);
+          box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-primary) 35%, transparent);
+        }
+      }
+
+      button {
+        margin-bottom: 14px;
+        border: 1px solid var(--color-primary);
+        background: color-mix(in srgb, var(--color-primary) 14%, transparent);
+        color: var(--color-quaternary);
+        padding: 8px 14px;
+        border-radius: 10px;
+        font-weight: var(--weight-Bold);
+        cursor: pointer;
+
+        &:hover { background: color-mix(in srgb, var(--color-secondary) 20%, transparent); }
+        &:focus-visible {
+          outline: none;
+          box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-primary) 35%, transparent);
+        }
+      }
+    }
+
+    .register { max-width: 520px; }
+  }
+
+
+  [style*="color:red"] {
+    color: var(--color-secondary) !important;
+    font-weight: var(--weight-Bold);
+  }
+
+  @media (max-width: 900px) {
+    flex-wrap: wrap;
+    .auth { width: 100%; justify-content: space-between; }
+    .auth details { flex: 1 1 48%; }
+  }
+
+  @media (max-width: 640px) {
+    .auth {
+      flex-direction: column;
+      width: 100%;
+      gap: 10px;
+
+      details { width: 100%; }
+    }
+  }
+}

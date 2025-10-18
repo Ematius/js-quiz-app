@@ -1,6 +1,11 @@
-<p>home works!</p>
 
-
+@if (!showContent) {
+<div class="start-screen">
+  <h1>Bienvenido al JS Quiz</h1>
+  <p>Pon a prueba tus conocimientos sobre métodos de JavaScript.</p>
+  <button (click)="startQuiz()">Comenzar</button>
+</div>
+} @else {
   <div class="question-container">
     @if (errorMsg) {
     <p>{{ errorMsg }}</p>
@@ -8,20 +13,20 @@
     } @else if (question) {
     <h2>Pregunta {{ question.method }}</h2>
     @if (checkLogIn()) {
-      <button (click)="toggleFavorite({ questionId: question.id})">
-        @if (isFavorite === true) {
-        ❤️
-        } @else if (isFavorite === false) {
-        🤍
-        }
-        <p>{{favoriteMsg}}</p>
-      </button>
+    <button (click)="toggleFavorite({ questionId: question.id})">
+      @if (isFavorite === true) {
+      ❤️
+      } @else if (isFavorite === false) {
+      🤍
+      }
+      <p>{{favoriteMsg}}</p>
+    </button>
     } @else {
 
-      <button>
-        ♡
-      </button>
-      <p>Opcion de guardado de favoritos solo con inicio de sesion</p>
+    <button>
+      ♡
+    </button>
+    <p>Opcion de guardado de favoritos solo con inicio de sesion</p>
     }
     <p>Nivel {{ question.level }}</p>
     <p>Tipo de Método: {{ question.method_type }}</p>
@@ -37,48 +42,48 @@
   </div>
 
   <div>
-   <input type="text" [(ngModel)]="userAnswer" placeholder="Escribe tu respuesta aquí">
-   @if(userAnswer === '') {
+    <input type="text" [(ngModel)]="userAnswer" placeholder="Escribe tu respuesta aquí">
+    @if(userAnswer === '') {
     <button disabled>Enviar Respuesta </button>
-   } @else {
+    } @else {
     <button (click)="sendAnswer({ questionId: question!.id, answer: userAnswer })">Enviar Respuesta</button>
-   }
+    }
   </div>
 
   <div class="result-container">
     @if (resultUser) {
     @if (resultUser.isCorrect) {
-    <p style="color: green;">✅ ¡Correcto!</p>
+    <p>✅ ¡Correcto!</p>
     <button (click)="nextQuestion()">Siguiente pregunta</button>
 
     } @else {
-    <p style="color: red;">❌ Incorrecto. La respuesta correcta es:
+    <p>❌ Incorrecto. La respuesta correcta es:
       {{ resultUser.correctAnswer }}
 
     </p>
     }
     } @else if (result) {
     @if (result.isCorrect) {
-    <p style="color: green;">✅ ¡Correcto!</p>
+    <p>✅ ¡Correcto!</p>
     <button (click)="nextQuestion()">Siguiente pregunta</button>
     } @else {
-    <p style="color: red;">❌ Incorrecto. La respuesta correcta es:
+    <p>❌ Incorrecto. La respuesta correcta es:
       <strong>{{ result.correctAnswer }}</strong>
     </p>
     }
     }
+    
     @if(responseProgressQuestion){
-      <p>Total: {{responseProgressQuestion.total}}</p>
-      <p>Contestadas hasta del total: {{responseProgressQuestion.answered}}</p>
-      <p>Correctas: {{responseProgressQuestion.correct}}</p>
-      <p>Incorrectas: {{responseProgressQuestion.wrong}}</p>
-      <p>Pendientes: {{responseProgressQuestion.unanswered}}</p>
+    <p>Total: {{responseProgressQuestion.total}}</p>
+    <p>Contestadas hasta del total: {{responseProgressQuestion.answered}}</p>
+    <p>Correctas: {{responseProgressQuestion.correct}}</p>
+    <p>Incorrectas: {{responseProgressQuestion.wrong}}</p>
+    <p>Pendientes: {{responseProgressQuestion.unanswered}}</p>
     }
 
   </div>
 
 
-
-
+}
 
 

@@ -1,1 +1,113 @@
-/* You can add global styles to this file, and also import other style files */
+
+
+/* ================================
+   GLOBAL STYLES & VARIABLES
+   ================================ */
+
+/* ======= Font import ======= */
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap');
+
+/* ======= Root variables ======= */
+:root {
+
+  /* ======= Font family ======= */
+  --font-main: 'Space Grotesk', sans-serif;
+  --font-text: 'Space Grotesk', sans-serif;
+
+  /* ======= Font weight ======= */
+  --weight-Regular: 400;
+  --weight-Medium: 500;
+  --weight-Bold: 700;
+
+  /* ======= Font size ======= */
+  --font-s: clamp(0.75rem, 0.8rem + 0.3vw, 1rem);
+  --font-ms: clamp(1rem, 1.1rem + 0.4vw, 1.3rem);
+  --font-m: clamp(1.25rem, 1.4rem + 0.5vw, 1.6rem);
+  --font-l: clamp(2rem, 2.2rem + 0.5vw, 2.8rem);
+
+  /* ========= Color palette ======= */
+
+  --color-primary: #3b82f6;
+  --color-secondary: #2563eb;
+  --color-tertiary: #1e293b;
+  --color-quaternary: #94a3b8;
+  --background-color: #0b1220;
+  --background-color-2: #0b1220f4;
+
+  /* ========= Width and heights ======= */
+  --width-xs: clamp(100px, 20vw, 200px);
+  --width-s: clamp(150px, 40vw, 300px);
+  --width-m: clamp(250px, 60vw, 500px);
+  --width-l: clamp(350px, 80vw, 800px);
+  --width-xl: clamp(450px, 100vw, 1100px);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+/* ========================================================================== */
+/* ========================= RESET CSS ========================= */
+
+/* Reset Josh W. Comeau */
+/* 1. Use a more-intuitive box-sizing model */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+/* 2. Remove default margin */
+* {
+  margin: 0;
+}
+
+/* 3. Enable keyword animations */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    interpolate-size: allow-keywords;
+  }
+}
+
+body {
+  /* 4. Add accessible line-height */
+  line-height: 1.5;
+  /* 5. Improve text rendering */
+  -webkit-font-smoothing: antialiased;
+}
+
+/* 6. Improve media defaults */
+img, picture, video, canvas, svg {
+  display: block;
+  max-width: 100%;
+}
+
+/* 7. Inherit fonts for form controls */
+input, button, textarea, select {
+  font: inherit;
+}
+
+/* 8. Avoid text overflows */
+p, h1, h2, h3, h4, h5, h6 {
+  overflow-wrap: break-word;
+}
+
+/* 9. Improve line wrapping */
+p {
+  text-wrap: pretty;
+}
+h1, h2, h3, h4, h5, h6 {
+  text-wrap: balance;
+}
+
+/*
+  10. Create a root stacking context
+*/
+#root, #__next {
+  isolation: isolate;
+}

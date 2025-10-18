@@ -7,11 +7,6 @@ import {
 } from '../../core/services/question/dto/dto.question';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import {
-  AnswerResponseDto,
-  AnswerUserDto,
-} from '../../core/services/question/dto/Answer.question.user';
-
 import { ToggleFavoriteDto,ToggleFavoriteResponseDto } from '../../core/services/question/dto/toggle.question';
 import { AuthService } from '../../core/services/auth/auth.service.service';
 import { ResponseAnswerQuestion, ResponseProgressQuestion } from '../../core/services/question/dto/response.question.user';
@@ -28,6 +23,8 @@ export class HomeComponent implements OnInit {
   private readonly AuthService = inject(AuthService);
 
   logIn = false || true;
+
+  showContent = false;
 
   currentId = 1;
 
@@ -49,6 +46,9 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     this.loadQuestion();
+  }
+  startQuiz() {
+    this.showContent = true;
   }
 
   loadQuestion(): void {
@@ -102,27 +102,26 @@ export class HomeComponent implements OnInit {
   }
 
   sendAnswer(dto: AnswerDto): void {
+    localStorage.getItem('token');
+    this.questionService.postUpdateProgress(dto).subscribe({
+      next: (res: ResponseAnswerQuestion) => {
+        this.resultUser = res;
+        this.errorMsg = null;
 
-    localStorage.getItem('token')
-      this.questionService.postUpdateProgress(dto).subscribe({
-        next: (res: ResponseAnswerQuestion) => {
-          this.resultUser = res;
-          this.errorMsg = null;
-
-          this.questionService.getReadProgress().subscribe({
-            next: (progress: ResponseProgressQuestion) => {
-              this.responseProgressQuestion = progress;
-            },
-            error: () => {
-              this.errorMsg = 'No se pudo leer el progreso';
-            },
-          });
-        },
-        error: () => {
-          this.resultUser = null;
-          this.errorMsg = 'Error al enviar la respuesta';
-        },
-      });
+        this.questionService.getReadProgress().subscribe({
+          next: (progress: ResponseProgressQuestion) => {
+            this.responseProgressQuestion = progress;
+          },
+          error: () => {
+            this.errorMsg = 'No se pudo leer el progreso';
+          },
+        });
+      },
+      error: () => {
+        this.resultUser = null;
+        this.errorMsg = 'Error al enviar la respuesta';
+      },
+    });
     this.userAnswer = '';
   }
 
@@ -159,8 +158,4 @@ export class HomeComponent implements OnInit {
       return (this.logIn = true);
     }
   }
-  // count(): number {
-  //   const total = this.progress?.total ?? 142;
-  //   return total - this.currentId;
-  // }
 }

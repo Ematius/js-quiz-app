@@ -3,7 +3,7 @@ import {
   NotFoundException,
   NotImplementedException,
 } from '@nestjs/common';
-import { PrismaService } from 'src/prisma/prisma.service';
+import { PrismaService } from '../prisma/prisma.service';
 import { Question } from './entities/question.entity';
 import { AnswerInviteDto, AnswerQuestionDto } from './dto/answer.question.dto';
 
