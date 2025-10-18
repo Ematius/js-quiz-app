@@ -1,0 +1,103 @@
+:host{
+  display: block;
+  min-height: 100vh;
+  background-color: var(--background-color);
+}
+
+
+
+
+div {
+  width: min(var(--width-xl), 100%);
+  margin: 0 auto;
+  padding: 1rem clamp(1rem, 4vw, 2rem);
+  background-color: var(--background-color);
+
+  h2 {
+    font-family: var(--font-main);
+    font-weight: var(--weight-Bold);
+    font-size: var(--font-m);
+    margin: 0 0 1rem;
+    color: #e5e7eb;
+  }
+
+   p {
+    margin: .25rem 0 1rem;
+    color: var(--color-quaternary);
+  }
+
+
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+
+    li {
+      background: rgba(255,255,255,0.03); /* mismo tono suave sobre el fondo */
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 16px;
+      padding: 1rem;
+      display: grid;
+      gap: .5rem;
+      transition: transform .08s ease, border-color .2s ease;
+
+      &:hover {
+        transform: translateY(-2px);
+        border-color: rgba(255,255,255,0.14);
+      }
+
+      h3 {
+        margin: 0;
+        font-size: var(--font-ms);
+        font-weight: var(--weight-Bold);
+        color: #e5e7eb;
+      }
+
+      p {
+        margin: 0;
+        color: var(--color-quaternary);
+        white-space: pre-line;
+      }
+    }
+  }
+}
+
+
+button[routerLink="/"] {
+  display: inline-flex;
+  align-items: center;
+  gap: .4rem;
+  margin: .5rem clamp(1rem, 4vw, 2rem);
+
+  background: var(--color-primary);
+  color: #fff;
+  border: 0;
+  border-radius: 12px;
+  padding: .6rem .95rem;
+  font-weight: var(--weight-Medium);
+  font-size: var(--font-s);
+  transition: background .2s ease, transform .05s ease;
+
+  &:hover { background: var(--color-secondary); }
+  &:active { transform: translateY(1px); }
+}
+
+
+@media (max-width: 768px) {
+  .favorites,
+  button[routerLink="/home"] + div {
+    padding-inline: 1rem;
+
+    ul { grid-template-columns: 1fr; }
+  }
+
+  button[routerLink="/home"] {
+    margin-inline: 1rem;
+    width: calc(100% - 2rem);
+    justify-content: center;
+  }
+}
