@@ -40,6 +40,14 @@
   --width-m: clamp(250px, 60vw, 500px);
   --width-l: clamp(350px, 80vw, 800px);
   --width-xl: clamp(450px, 100vw, 1100px);
+
+  --heights-xs: clamp(100px, 20vw, 200px);
+  --heights-s: clamp(150px, 40vw, 300px);
+  --heights-m: clamp(250px, 60vw, 500px);
+  --heights-l: clamp(350px, 80vw, 800px);
+  --heights-xl: clamp(450px, 100vw, 1100px);
+
+
 }
 
 
